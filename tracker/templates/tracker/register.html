@@ -2,22 +2,77 @@
 <html>
 <head>
     <title>Register - Expense Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-container {
+            width: 500px;
+            background: white;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 9px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        ul {
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Register</h1>
+    <div class="form-container">
+        <h1>Register</h1>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
 
-        <button type="submit">Register</button>
-    </form>
+            <button type="submit">Register</button>
+        </form>
 
-    <p>
-        Already have an account?
-        <a href="{% url 'login' %}">Login here</a>
-    </p>
+        <div class="link">
+            <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+        </div>
+    </div>
 
 </body>
 </html>

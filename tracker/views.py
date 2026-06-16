@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from .models import Transaction
 from .forms import TransactionForm
+from datetime import date
 
 
 @login_required
@@ -20,6 +21,25 @@ def dashboard(request):
 
     if category:
         transactions = transactions.filter(category=category)
+
+    today = date.today()
+
+    monthly_transactions = Transaction.objects.filter(
+        user=request.user,
+        date__year=today.year,
+        date__month=today.month
+    )
+    monthly_income = 0
+    monthly_expense = 0
+
+    for mt in monthly_transactions:
+        if mt.transaction_type == 'Income':
+            monthly_income += mt.amount
+        else:
+            monthly_expense += mt.amount
+
+    monthly_savings = monthly_income - monthly_expense
+
 
     total_income = 0
     total_expense = 0
@@ -37,6 +57,9 @@ def dashboard(request):
         'total_income': total_income,
         'total_expense': total_expense,
         'balance': balance,
+        'monthly_income': monthly_income,
+        'monthly_expense': monthly_expense,
+        'monthly_savings': monthly_savings,
     })
 
 

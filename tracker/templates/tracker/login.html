@@ -2,35 +2,88 @@
 <html>
 <head>
     <title>Login - Expense Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-container {
+            width: 400px;
+            background: white;
+            margin: 80px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Login</h1>
+    <div class="form-container">
+        <h1>Login</h1>
 
-    {% if error %}
-        <p style="color:red;">{{ error }}</p>
-    {% endif %}
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
 
-    <form method="POST">
-        {% csrf_token %}
+        <form method="POST">
+            {% csrf_token %}
 
-        <p>
-            <label>Username:</label><br>
+            <label>Username</label>
             <input type="text" name="username" required>
-        </p>
 
-        <p>
-            <label>Password:</label><br>
+            <label>Password</label>
             <input type="password" name="password" required>
-        </p>
 
-        <button type="submit">Login</button>
-    </form>
+            <button type="submit">Login</button>
+        </form>
 
-    <p>
-        New user?
-        <a href="{% url 'register' %}">Register here</a>
-    </p>
+        <div class="link">
+            <p>New user? <a href="{% url 'register' %}">Register here</a></p>
+        </div>
+    </div>
 
 </body>
 </html>

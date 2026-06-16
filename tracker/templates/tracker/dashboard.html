@@ -155,7 +155,9 @@
 
     <div class="navbar">
         <h1>Expense Tracker</h1>
-        <p>Admin/User: {{ request.user.username }}</p>
+        <p>Admin/User: {{ request.user.username }}
+             <a href="{% url 'logout' %}" style="color:white;">Logout</a>
+        </p>
     </div>
 
     <div class="container">
@@ -168,6 +170,7 @@
                 <p>₹{{ total_income }}</p>
             </div>
 
+
             <div class="card expense-card">
                 <h2>Total Expense</h2>
                 <p>₹{{ total_expense }}</p>
@@ -178,6 +181,15 @@
                 <p>₹{{ balance }}</p>
             </div>
         </div>
+
+        <div class="filter-box">
+    <h3>This Month Summary</h3>
+    <p><strong>Monthly Income:</strong> ₹{{ monthly_income }}</p>
+    <p><strong>Monthly Expense:</strong> ₹{{ monthly_expense }}</p>
+    <p><strong>Monthly Savings:</strong> ₹{{ monthly_savings }}</p>
+       </div>
+
+
 
         <a class="add-btn" href="{% url 'add_transaction' %}">+ Add Transaction</a>
 
