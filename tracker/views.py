@@ -12,6 +12,14 @@ from .forms import TransactionForm
 @login_required
 def dashboard(request):
     transactions = Transaction.objects.filter(user=request.user).order_by('-date')
+    transaction_type = request.GET.get('type')
+    category = request.GET.get('category')
+
+    if transaction_type:
+        transactions = transactions.filter(transaction_type=transaction_type)
+
+    if category:
+        transactions = transactions.filter(category=category)
 
     total_income = 0
     total_expense = 0
