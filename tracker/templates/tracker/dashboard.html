@@ -4,6 +4,27 @@
     <title>Expense Tracker Dashboard</title>
 
     <style>
+        .income-card {
+    border-left: 6px solid #27ae60;
+}
+
+.expense-card {
+    border-left: 6px solid #e74c3c;
+}
+
+.balance-card {
+    border-left: 6px solid #2980b9;
+}
+
+.income-text {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.expense-text {
+    color: #e74c3c;
+    font-weight: bold;
+}
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f6f9;
@@ -142,17 +163,17 @@
         <p class="welcome">Welcome, {{ request.user.username }}</p>
 
         <div class="cards">
-            <div class="card">
+            <div class="card income-card">
                 <h2>Total Income</h2>
                 <p>₹{{ total_income }}</p>
             </div>
 
-            <div class="card">
+            <div class="card expense-card">
                 <h2>Total Expense</h2>
                 <p>₹{{ total_expense }}</p>
             </div>
 
-            <div class="card">
+            <div class="card balance-card">
                 <h2>Balance</h2>
                 <p>₹{{ balance }}</p>
             </div>
@@ -202,7 +223,11 @@
             {% for transaction in transactions %}
             <tr>
                 <td>{{ transaction.date }}</td>
-                <td>{{ transaction.transaction_type }}</td>
+                <td>{% if transaction.transaction_type == 'Income' %}
+        <span class="income-text">{{ transaction.transaction_type }}</span>
+    {% else %}
+        <span class="expense-text">{{ transaction.transaction_type }}</span>
+    {% endif %}</td>
                 <td>{{ transaction.category }}</td>
                 <td>₹{{ transaction.amount }}</td>
                 <td>{{ transaction.description }}</td>
