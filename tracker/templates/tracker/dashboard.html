@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker Dashboard</title>
+</head>
+<body>
+
+    <h1>Expense Tracker Dashboard</h1>
+
+    <p>
+        Welcome, {{ request.user.username }} |
+        
+    </p>
+
+    <h2>Total Income: ₹{{ total_income }}</h2>
+    <h2>Total Expense: ₹{{ total_expense }}</h2>
+    <h2>Balance: ₹{{ balance }}</h2>
+
+    <a href="{% url 'add_transaction' %}">+ Add Transaction</a>
+
+    <hr>
+
+    <h2>All Transactions</h2>
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+
+        {% for transaction in transactions %}
+        <tr>
+            <td>{{ transaction.date }}</td>
+            <td>{{ transaction.transaction_type }}</td>
+            <td>{{ transaction.category }}</td>
+            <td>₹{{ transaction.amount }}</td>
+            <td>{{ transaction.description }}</td>
+            <td>
+                <a href="{% url 'edit_transaction' transaction.id %}">Edit</a>
+                |
+                <a href="{% url 'delete_transaction' transaction.id %}">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No transactions found</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
